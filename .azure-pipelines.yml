@@ -1,0 +1,40 @@
+trigger:
+  - main
+
+pool:
+  vmImage: "ubuntu-latest"
+
+variables:
+  NODE_VERSION: "16"
+  DOCKER_IMAGE: "azure-pipelines-practice"
+
+steps:
+  - task: UseNode@2
+    inputs:
+      version: $(NODE_VERSION)
+
+  - script: |
+      npm install
+      npm test
+    displayName: "Install Dependencies and Run Unit Tests"
+
+  - script: |
+      docker build -t $(DOCKER_IMAGE) .
+    displayName: "Dockerize Application"
+
+  - task: Docker@2
+    inputs:
+      containerRegistry: "$(DOCKER_REGISTRY_SERVICE_CONNECTION)"
+      repository: "$(DOCKER_IMAGE)"
+      command: "push"
+      tags: "latest"
+
+  - task: TerraformInstaller@0
+    inputs:
+      terraformVersion: "1.5.3"
+
+  - script: |
+      terraform init
+      terraform apply -auto-approve
+    workingDirectory: terraform
+    displayName: "Deploy with Terraform"
