@@ -1,0 +1,24 @@
+{
+    "name": "azure-pipelines-practice",
+    "version": "1.0.0",
+    "description": "Project-wide configurations for Azure Pipelines and Terraform",
+    "scripts": {
+      "test": "jest",
+      "test:watch": "jest --watch",
+      "lint": "eslint app/**/*.js",
+      "start:app": "npm start --prefix app"
+    },
+    "jest": {
+      "testEnvironment": "node",
+      "testMatch": ["**/tests/**/*.test.js"]
+    },
+    "dependencies": {
+        "express": "^4.18.2"
+    },
+    "devDependencies": {
+      "jest": "^29.0.0",
+      "eslint": "^8.50.0",
+      "supertest": "^7.0.0"
+    }
+  }
+  
