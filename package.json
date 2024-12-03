@@ -1,6 +1,6 @@
 {
     "name": "azure-pipelines-practice",
-    "version": "1.0.0",
+    "version": "0.0.1",
     "description": "Project-wide configurations for Azure Pipelines and Terraform",
     "scripts": {
         "test": "jest",
