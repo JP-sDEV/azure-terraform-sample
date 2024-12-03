@@ -51,7 +51,7 @@ jobs:
           dockerfile: app/Dockerfile
 
   unit-tests:
-    name: Dockerfile Lint
+    name: Unit tests
     runs-on: ubuntu-latest
     steps:
       # Checkout the repository code
