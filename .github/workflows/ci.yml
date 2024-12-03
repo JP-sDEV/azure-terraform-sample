@@ -9,7 +9,49 @@ on:
       - master
 
 jobs:
-  build:
+  eslint:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the repository code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Set up Node.js environment for dependencies installation and testing
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18.x"
+          cache: "npm"
+
+      # Install app and test dependencies
+      - name: Install dependencies
+        run: |
+          npm install # Install root dependencies (test dependencies)
+          cd app && npm install # Install app dependencies
+
+        # Lint Source
+      - name: Lint source code
+        run: npm run lint
+
+  dockerfile-lint:
+    name: Dockerfile lint
+    runs-on: ubuntu-latest
+    steps:
+      # https://github.com/marketplace/actions/hadolint-action
+      - uses: actions/checkout@v4
+
+      - name: Lint root Dockerfile
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: Dockerfile
+
+      - name: Lint app Dockerfile
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: app/Dockerfile
+
+  unit-tests:
+    name: Dockerfile Lint
     runs-on: ubuntu-latest
     steps:
       # Checkout the repository code
@@ -21,16 +63,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "18.x"
+          cache: "npm"
 
       # Install app and test dependencies
       - name: Install dependencies
         run: |
           npm install # Install root dependencies (test dependencies)
           cd app && npm install # Install app dependencies
-
-      # Lint Code
-      - name: Lint code
-        run: npm run lint
 
       # Run tests
       - name: Run tests
