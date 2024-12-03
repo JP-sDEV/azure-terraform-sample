@@ -28,6 +28,10 @@ jobs:
           npm install # Install root dependencies (test dependencies)
           cd app && npm install # Install app dependencies
 
+      # Lint Code
+      - name: Lint code
+        run:
+
       # Run tests
       - name: Run tests
         run: npm test
