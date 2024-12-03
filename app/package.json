@@ -1,0 +1,14 @@
+{
+    "name": "app",
+    "version": "1.0.0",
+    "description": "Node.js app to practice Azure Pipelines and Terraform",
+    "main": "app.js",
+    "scripts": {
+      "start": "node app.js",
+      "test": "echo 'Tests are managed at the root level'"
+    },
+    "dependencies": {
+      "express": "^4.18.2"
+    }
+  }
+  
