@@ -30,7 +30,7 @@ jobs:
 
       # Lint Code
       - name: Lint code
-        run:
+        run: npm run lint
 
       # Run tests
       - name: Run tests
