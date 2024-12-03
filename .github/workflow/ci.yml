@@ -1,0 +1,33 @@
+name: CI Workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the repository code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Set up Node.js environment for dependencies installation and testing
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
+
+      # Install app and test dependencies
+      - name: Install dependencies
+        run: |
+          npm install # Install root dependencies (test dependencies)
+          cd app && npm install # Install app dependencies
+
+      # Run tests
+      - name: Run tests
+        run: npm test
